@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:19:14 by aberry            #+#    #+#             */
-/*   Updated: 2021/01/16 21:03:46 by aberry           ###   ########.fr       */
+/*   Updated: 2021/01/16 22:13:16 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ static char			*ft_find_command(char *line_command, char *env[])
 		}
 	}
 	ft_strjoin_command(str, line_command);
-	ft_print_str_split(str);
 	index = ft_check_path(str, line_command);
 	if (index != -1)
 		line = ft_strdup(str[index]);
@@ -111,13 +110,13 @@ static char			*ft_find_command(char *line_command, char *env[])
 	return (line);
 }
 
-void handle_sigint(int sig)
+void	handle_sigint(int sig)
 {
 	printf("Caught signal %d\n", sig);
 	exit(0);
 }
 
-void handle_sigint_r(int sig)//del
+void	handle_sigint_r(int sig)//del
 {
 }
 
@@ -145,6 +144,5 @@ int		ft_launch_executable(char *line_command, char *argv[], char *env[])
 	}
 	wait(NULL);
 	free(str);
-	printf("parent\n");
 	return (0);
 }
