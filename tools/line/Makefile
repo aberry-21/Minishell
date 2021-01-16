@@ -1,4 +1,4 @@
-.PHONY:	all clean fclean re test
+.PHONY:			all clean fclean re test
 
 NAME		=	libline.a
 
@@ -16,11 +16,11 @@ NAME_FILES	=	ft_line_add_chr.c ft_line_mem_up.c ft_line_mem_up_to.c\
 				ft_line_cpy_str.c ft_line_new.c ft_line_add_line.c\
 				ft_line_add_str.c ft_line_cpy_line.c ft_line_del.c\
 				ft_line_create_chr.c ft_line_create_str.c ft_line_cpy_chr.c\
-				ft_line_create_line.c
+				ft_line_create_line.c ft_line_insert_chr.c
 
 TEST_FILES	=	main.c new_test.c cpy_str_test.c cpy_chr_test.c\
 				create_chr_test.c create_str_test.c create_line_test.c\
-				cpy_line_test.c
+				cpy_line_test.c add_chr_test.c
 
 N_FILES		=	$(addprefix ${N_DIR}, $(NAME_FILES))
 

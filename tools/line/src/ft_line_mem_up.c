@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_line_mem_up.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:29:23 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 14:34:36 by aberry           ###   ########.fr       */
+/*   Updated: 2021/01/15 07:28:59 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_line		*ft_line_mem_up(t_line *line, size_t size)
 {
 	char	*for_free;
 	char	*alloc_memmory;
+	size_t	len;
 
 	if (size)
 	{
@@ -23,10 +24,12 @@ t_line		*ft_line_mem_up(t_line *line, size_t size)
 		alloc_memmory = (char *)malloc(line->allocated + size);
 		if (!alloc_memmory)
 			return ((t_line *)0);
-		free(for_free);
 		line->string = alloc_memmory;
 		line->allocated = line->allocated + size;
-		ft_line_cpy_str(line, for_free);
+		len = line->length;
+		line->string[len] = '\0';
+		while (len--)
+			line->string[len] = for_free[len];
 		free(for_free);
 	}
 	return (line);

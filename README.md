@@ -13,3 +13,5 @@ MIRO:
 - TODO list
 
 	https://miro.com/app/board/o9J_lZckQJk=/
+
+git add . && git commit -m "master" && git push

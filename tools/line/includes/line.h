@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:01:45 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 04:44:01 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/16 08:13:53 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,10 @@ t_line			*ft_line_cpy_str(t_line *destination, const char *sourse);
 ** Копировать в линию destination линию sourse
 */
 t_line			*ft_line_cpy_line(t_line *destination, t_line *sourse);
+
+/*
+** Вставить в line, символ chr, по индексу index
+*/
+t_line			*ft_line_insert_chr(t_line *line, char chr, size_t index);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 12:44:10 by telron            #+#    #+#             */
-/*   Updated: 2021/01/09 14:10:04 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/15 03:36:48 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,14 @@ void				*ft_memmove(\
 size_t				ft_strlen(const char *string);
 
 /*
-** 		Копирует строку из src в dst не более size байт,
-** 		последный байт гарантированно закрывается нуль терминатором
+** Копирует строку из source в destination,
+** вместе с нулль-терминатором
+*/
+char				*ft_strcpy(char *destination, const char *source);
+
+/*
+** Копирует строку из src в dst не более size байт,
+** последный байт гарантированно закрывается нуль терминатором
 */
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 
@@ -94,8 +100,8 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 char				*ft_strchr(const char *string, int c_pattern);
 
 /*
-** 		Производит поиск символа c_pattern в строке string,
-** 		поиск идёт справо налево, до первого вхождения
+** Производит поиск символа c_pattern в строке string,
+** поиск идёт справо налево, до первого вхождения
 */
 char				*ft_strrchr(const char *str, int argument);
 

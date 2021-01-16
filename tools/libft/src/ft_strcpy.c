@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_includes.h                               :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 21:25:57 by telron            #+#    #+#             */
-/*   Updated: 2021/01/16 02:40:13 by telron           ###   ########.fr       */
+/*   Created: 2021/01/15 03:30:57 by telron            #+#    #+#             */
+/*   Updated: 2021/01/15 03:34:43 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef MINISHELL_INCLUDES_H
-# define MINISHELL_INCLUDES_H
+char	*ft_strcpy(char *destination, const char *source)
+{
+	size_t counter;
 
-#include <stdio.h>
-# include <signal.h>
-# include <string.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <termios.h>
-# include "libft.h"
-# include "list.h"
-# include "dlist.h"
-# include "line.h"
-
-#endif
+	counter = 0;
+	while ((destination[counter] = source[counter]))
+		counter++;
+	return (destination);
+}
