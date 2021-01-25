@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_includes.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:25:57 by telron            #+#    #+#             */
-/*   Updated: 2021/01/16 02:40:13 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/22 20:20:33 by olebedev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include "libft.h"
 # include "list.h"
 # include "dlist.h"
+# include "dict.h"
 # include "line.h"
+# include <sys/stat.h>
+# include <sys/types.h>
 
 #endif

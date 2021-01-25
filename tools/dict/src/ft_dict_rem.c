@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_line_add_line.c                                 :+:      :+:    :+:   */
+/*   ft_dict_rem.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 08:52:30 by telron            #+#    #+#             */
-/*   Updated: 2021/01/18 09:25:33 by telron           ###   ########.fr       */
+/*   Created: 2020/12/07 07:42:47 by telron            #+#    #+#             */
+/*   Updated: 2021/01/20 18:53:28 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line.h"
+#include "dict.h"
 
-t_line		*ft_line_add_line(t_line *line, t_line *tail)
+void	ft_dict_rem(t_dict *dict)
 {
-	if (!ft_line_mem_realloc(line, line->length + tail->length))
-		return ((t_line *)0);
-	ft_strcpy(line->string + line->length, tail->string);
-	line->length += tail->length;
-	return (line);
+	ft_dict_clean(dict);
+	free(dict->list);
+	free(dict);
 }

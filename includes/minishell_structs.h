@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:21:37 by telron            #+#    #+#             */
-/*   Updated: 2021/01/16 02:55:39 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/23 18:09:56 by olebedev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_shell
 	t_dlist		*input_lines;
 	t_list		*command_lines;
 	t_string	*signature;
+	t_dict		*env;
 	int			cursor;
 }				t_shell;
 

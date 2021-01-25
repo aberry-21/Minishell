@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:01:45 by telron            #+#    #+#             */
-/*   Updated: 2021/01/16 08:13:53 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/22 07:50:15 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ t_line			*ft_line_new(size_t init_size);
 void			ft_line_del(t_line *line);
 
 /*
+** Удалить символ по индексу index в строке line
+*/
+void			ft_line_del_chr(t_line *line, size_t index);
+
+/*
 ** Дополнительно добавить выделенной памяти к line, количеством size
 ** В случае выделения памяти, данные копируются
 */
@@ -46,6 +51,12 @@ t_line			*ft_line_mem_up(t_line *line, size_t size);
 ** В случае выделения памяти, данные стираются и line становиться не безопасным!
 */
 t_line			*ft_line_mem_up_to(t_line *line, size_t length);
+
+/*
+** Увеличить доступную память line,
+** чтобы строка размером length могла поместиться в line->string
+*/
+t_line			*ft_line_mem_realloc(t_line *line, size_t length);
 
 /*
 ** Создание объекта line, из символа chr
@@ -96,5 +107,10 @@ t_line			*ft_line_cpy_line(t_line *destination, t_line *sourse);
 ** Вставить в line, символ chr, по индексу index
 */
 t_line			*ft_line_insert_chr(t_line *line, char chr, size_t index);
+
+/*
+** Обрезать line по определённому индексу
+*/
+t_line			*ft_line_cut_index(t_line *line, size_t index);
 
 #endif

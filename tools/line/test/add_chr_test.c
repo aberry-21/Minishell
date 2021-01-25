@@ -6,10 +6,9 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 06:58:14 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 07:36:03 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/18 07:41:26 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "line_test.h"
 
@@ -34,7 +33,7 @@ static void	ft_case_with_len(size_t start_size, const char *string)
 	ft_line_del(line);
 }
 
-void		ft_case(const char *string)
+static void	ft_case(const char *string)
 {
 	ft_putstr_fd("|   ft_line_add_chr   | ", 1);
 	ft_case_with_len(0, string);

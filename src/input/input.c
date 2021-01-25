@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 21:33:18 by telron            #+#    #+#             */
-/*   Updated: 2021/01/16 08:24:17 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/23 16:44:14 by olebedev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	ft_input(t_shell *config)
 		else if (ft_isascii(*buff))
 		{
 			ft_input_reset(config);
-			ft_line_insert_chr((t_line *)(config->input_lines->content), *buff, (int)config->cursor);
+			// ft_line_insert_chr((t_line *)(config->input_lines->content), *buff, (int)config->cursor);
 			config->cursor += 1;
 			ft_input_render(config);
 		}

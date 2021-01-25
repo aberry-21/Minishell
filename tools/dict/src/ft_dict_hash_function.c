@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_line_add_line.c                                 :+:      :+:    :+:   */
+/*   ft_dict_hash_function.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 08:52:30 by telron            #+#    #+#             */
-/*   Updated: 2021/01/18 09:25:33 by telron           ###   ########.fr       */
+/*   Created: 2020/12/07 07:56:58 by telron            #+#    #+#             */
+/*   Updated: 2020/12/17 15:56:25 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line.h"
+#include "dict.h"
 
-t_line		*ft_line_add_line(t_line *line, t_line *tail)
+size_t		ft_dict_hash_function(const char *key, size_t max_elem)
 {
-	if (!ft_line_mem_realloc(line, line->length + tail->length))
-		return ((t_line *)0);
-	ft_strcpy(line->string + line->length, tail->string);
-	line->length += tail->length;
-	return (line);
+	size_t hash;
+	size_t counter;
+
+	hash = 0;
+	counter = 0;
+	while (key[counter])
+	{
+		hash += hash * 23 + (unsigned char)(key[counter]);
+		counter++;
+	}
+	return (hash % max_elem);
 }

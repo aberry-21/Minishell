@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:19:14 by aberry            #+#    #+#             */
-/*   Updated: 2021/01/16 22:13:16 by aberry           ###   ########.fr       */
+/*   Updated: 2021/01/22 22:57:03 by olebedev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,6 @@ static void		ft_delete_strings(char **strings)
 	free(strings);
 }
 
-//удалить потом
-static void		ft_print_str_split(char **str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-}
-
 static void		ft_strjoin_command(char **str, char *line_command)
 {
 	char	*line;
@@ -59,55 +46,56 @@ static void		ft_strjoin_command(char **str, char *line_command)
 	free(line);
 }
 
-static	int		ft_check_path(char **str, char *line_command)
+static	char		*ft_check_path(char **str, char *line_command)
 {
 	struct stat		filestat;
 	int				i;
-	int				num;
+	char			*exe;
 
 	i = 0;
-	num = -1;
-	while (str[i])
+	exe = NULL;
+	while (str && str[i])
 	{
 		if (!stat(str[i], &filestat))
-			num = i;
+			exe = ft_strdup(str[i]);
 		i++;
 	}
-	if (num > -1 && !(filestat.st_mode & S_IXUSR))// пользователь не имеет право выполнения (или группа?)
+	if (!exe)
+		printf("minishell>: %s: No such file or directory\n", line_command);// временное решение
+	else if (!(filestat.st_mode & S_IXUSR))// пользователь не имеет право выполнения (или группа?)
 	{
+		free(exe);
+		exe = NULL;
 		printf("minishell>: %s: Permission denied\n", line_command);// временное решение
-		num = -1;
 	}
-	return (num);
+	return (exe);
 }
 
-static char			*ft_find_command(char *line_command, char *env[])
+static char			**ft_find_command(char *line_command, t_shell *config)
 {
-	int				i;
-	int				index;
-	char			**str;
-	char			**tmp;
-	char			*line;
+	char		*value_path;
+	char			**paths;
 
-	i = -1;
-	line = NULL;
-	while (env[++i])
-	{
-		if (!ft_strncmp("PATH=", env[i], 5))
-		{
-			str = ft_split(env[i], '=');
-			tmp = str;
-			str = ft_split(str[1], ':');
-			ft_delete_strings(tmp);
-			break ;
-		}
-	}
-	ft_strjoin_command(str, line_command);
-	index = ft_check_path(str, line_command);
-	if (index != -1)
-		line = ft_strdup(str[index]);
-	ft_delete_strings(str);
-	return (line);
+	value_path = (char *)ft_dict_get(config->env, "PATH");
+	if (!value_path)
+		return (NULL);
+	paths = ft_split(value_path, ':');
+	ft_strjoin_command(paths, line_command);
+	return (paths);
+}
+
+static char			*ft_choose_path(char *line_command, t_shell *config)
+{
+	char			*exe;
+	char			**line;
+
+	if (line_command[0] == '.' || line_command[0] == '/' )
+		line = ft_split(line_command, ' ');
+	else
+		line = ft_find_command(line_command, config);
+	exe = ft_check_path(line, line_command);
+	ft_delete_strings(line);
+	return (exe);
 }
 
 void	handle_sigint(int sig)
@@ -120,29 +108,28 @@ void	handle_sigint_r(int sig)//del
 {
 }
 
-int		ft_launch_executable(char *line_command, char *argv[], char *env[])
+int		ft_launch_executable(char *line_command, char *argv[], t_shell *config)
 {
-	char	*str;
+	char	*exe;
 	pid_t	pid;
+	int		return_value;
 
 	signal(SIGINT, handle_sigint_r);// del
 	signal(SIGQUIT, handle_sigint_r);// del
-	str = ft_find_command(line_command, env);
-	if (!str)
+	return_value = 1;
+	exe = ft_choose_path(line_command, config);
+	if (exe)
 	{
-		printf("Command not found: %s\n", line_command);
-		return (-1);
+		return_value = 0;
+		pid = fork();
+		if (pid == 0)
+		{
+			signal(SIGQUIT, handle_sigint);
+			signal(SIGINT, handle_sigint);
+			execve(exe, argv, ft_env_dict_to_string(config));
+		}
+		wait(NULL);
 	}
-	else
-		printf("Command found: %s\n", str);
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGQUIT, handle_sigint);
-		signal(SIGINT, handle_sigint);
-		execve(str, argv, env);
-	}
-	wait(NULL);
-	free(str);
-	return (0);
+	free(exe);
+	return (return_value);
 }

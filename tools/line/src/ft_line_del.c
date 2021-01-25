@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:25:09 by telron            #+#    #+#             */
-/*   Updated: 2021/01/14 23:28:16 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/17 07:02:34 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_line_del(t_line *line)
 {
-	free(line->string);
-	free(line);
+	if (line)
+	{
+		free(line->string);
+		free(line);
+	}
 }

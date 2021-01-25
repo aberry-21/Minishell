@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 01:08:02 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 07:05:52 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/18 09:27:56 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void		ft_line_create_chr_test(void);
 void		ft_line_create_str_test(void);
 void		ft_line_create_line_test(void);
 void		ft_line_add_chr_test(void);
+void		ft_line_add_str_test(void);
+void		ft_line_add_line_test(void);
 void		ft_line_cpy_chr_test(void);
 void		ft_line_cpy_str_test(void);
 void		ft_line_cpy_line_test(void);
