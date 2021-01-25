@@ -1,18 +1,5 @@
 #include "minishell.h"
 
-static void		ft_delete_strings(char **strings)
-{
-	size_t counter;
-
-	counter = 0;
-	while (strings && strings[counter])
-	{
-		free(strings[counter]);
-		counter++;
-	}
-	free(strings);
-}
-
 int	ft_env_check_key(t_shell *config, char *key)
 {
 	size_t		i;

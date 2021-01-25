@@ -1,66 +1,41 @@
 #include "minishell.h"
-//argv {"ls" "-la" 0},  filename, 
 
-// argv {"ls" "-la" "filename" ">>" 0},
-
-	// int stdout_fileno = dup(1);
-	// int fd = open("txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	// int fp2 = dup2(fd, 1);
-	// ft_launch_executable("ls", argv, &config);
-	// close(fp2);
-	// dup2(stdout_fileno, 1);
-	// printf("WERTYUIUYTRE");
-
-static size_t	ft_count_str(const char *str, char sep)
+static void ft_reset_streams(t_shell *config)
 {
-	size_t counter;
-
-	counter = 0;
-	while (*str)
-	{
-		if (*str != sep && (*(str + 1) == '\0' || *(str + 1) == sep))
-			counter++;
-		str++;
-	}
-	return (counter);
+	dup2(config->streams->std_in, 0);
+	dup2(config->streams->std_out, 1);
+	dup2(config->streams->std_err, 2);
 }
 
-int		ft_parse_ident(char *identifier, int *mode)
+static int ft_mode_open(char *indicator)
 {
+	if (!ft_strcmp(indicator, ">"))
+		return (O_WRONLY | O_CREAT | O_TRUNC);
+	if (!ft_strcmp(indicator, ">>"))
+		return (O_WRONLY | O_CREAT | O_APPEND);
+	if (!ft_strcmp(indicator, "<"))
+		return (O_RDONLY);
+	return (-1);
+}
+
+static void ft_dup_fd(char *indicator, char *filename)
+{
+	int		stream;
+	int		mode;
 	int		fd;
 
-	fd = (identifier[0] == '&') ? -1 : ft_atoi(identifier);
-	if (identifier[0] == '>')
-		fd = 1;
-	*mode = (ft_count_str(identifier, '>') == 2) ? O_APPEND : O_TRUNC;
-	return (fd);
+	stream = 1;
+	mode = ft_mode_open(indicator);
+	if (mode == 0x0000)
+		stream = 0;
+	fd = open(filename, mode, 0644);
+	dup2(fd, stream);
 }
 
-void	ft_redirection(t_shell *config, char *argv[])
+void	ft_redirection(t_shell *config, char *argv[], char *indicator, char *filename)
 {
-	size_t		counter;
-	int			old_fd;
-	int			new_fd;
-	int			fd_tmp;
-	int			mode;
-
-	counter = 0;
-	while (argv[counter])
-		counter++;
-	old_fd = ft_parse_ident(argv[counter - 1], &mode); 
-	new_fd = open(argv[counter - 2], O_WRONLY | O_CREAT | mode, 0644);
-	if (new_fd == -1)
-		return ;
-	argv[counter - 2] = 0;
-
-	fd_tmp = dup(old_fd);
-	dup2(new_fd, old_fd);
-
-	if (counter > 2)
+	ft_dup_fd(indicator, filename);
+	if (argv)
 		ft_launch_executable(argv[0], argv, config);
-	
-	close(old_fd);
-	dup2(fd_tmp, old_fd);
-
-	ft_putstr_fd("GOOD\n", 1);
+	ft_reset_streams(config);
 }

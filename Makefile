@@ -14,7 +14,8 @@ FILES		=	src/main.c\
 				src/builtins/ft_cd.c\
 				src/builtins/ft_export.c\
 				src/builtins/ft_unset.c\
-				src/redirections.c
+				src/redirections.c\
+				src/pipe.c\
 
 
 OBJS		=	$(FILES:.c=.o)
@@ -32,8 +33,16 @@ tools:
 
 clean:
 	rm -rf ${OBJS}
+	make clean -C ./tools/libft/
+	make clean -C ./tools/line/
+	make clean -C ./tools/dlist/
+	make clean -C ./tools/dict/
 
 fclean:		clean
 	rm -rf ${NAME}
+	make fclean -C ./tools/libft/
+	make fclean -C ./tools/line/
+	make fclean -C ./tools/dlist/
+	make fclean -C ./tools/dict/
 
 re:			fclean all

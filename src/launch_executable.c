@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_executable.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 16:19:14 by aberry            #+#    #+#             */
-/*   Updated: 2021/01/22 22:57:03 by olebedev         ###   ########.fr       */
+/*   Updated: 2021/01/25 20:41:42 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-// сделать ее не статической в сплите 
-static void		ft_delete_strings(char **strings)
-{
-	size_t counter;
-
-	counter = 0;
-	while (strings && strings[counter])
-	{
-		free(strings[counter]);
-		counter++;
-	}
-	free(strings);
-}
 
 static void		ft_strjoin_command(char **str, char *line_command)
 {
@@ -128,8 +115,9 @@ int		ft_launch_executable(char *line_command, char *argv[], t_shell *config)
 			signal(SIGINT, handle_sigint);
 			execve(exe, argv, ft_env_dict_to_string(config));
 		}
-		wait(NULL);
+		waitpid(pid, &return_value, 0);
 	}
 	free(exe);
+	// printf("%d", return_value);
 	return (return_value);
 }

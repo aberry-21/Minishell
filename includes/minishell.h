@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:20:07 by telron            #+#    #+#             */
-/*   Updated: 2021/01/23 22:41:46 by olebedev         ###   ########.fr       */
+/*   Updated: 2021/01/25 21:21:07 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int		ft_env_check_key(t_shell *config, char *key);
 int		ft_export(t_shell *config,const char *argv[]);
 int		ft_unset(t_shell *config, const char *argv[]);
 int		ft_set_env(t_shell *config, const char *argv[], int indefier);
-void	ft_redirection(t_shell *config, char *argv[]);
-// int		ft_env(t_shell *config, const char *argv[]);
+void	ft_redirection(t_shell *config, char *argv[], char *indicator, char *filename);
+void	ft_delete_strings(char **strings);
+int		ft_pipe(t_shell *config, char *argv[]);
+void	ft_dup_streams(t_shell *config);
+
 #endif
