@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:27:08 by aberry            #+#    #+#             */
-/*   Updated: 2021/01/25 21:27:08 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/06 02:12:05 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void		ft_add_or_change(t_shell *config, char **dict_elem, int flag)
 
 	dict_elem[1] = (!dict_elem[1]) ? ft_strdup("") : dict_elem[1];
 	data = (!flag) ? dict_elem[1] : NULL;
-	if(ft_env_check_key(config, dict_elem[0]))
-	 	ft_dict_add(&(config->env), dict_elem[0], data);
+	if (ft_env_check_key(config, dict_elem[0]))
+		ft_dict_add(&(config->env), dict_elem[0], data);
 	else if (data)
-	 	ft_env_change_value(config, data, dict_elem[0]);
+		ft_env_change_value(config, data, dict_elem[0]);
 }
 
 static int		ft_check_data(char *str)
@@ -59,9 +59,9 @@ int				ft_set_env(t_shell *config, const char *argv[], int indefier)
 	while (argv[i])
 	{
 		flag = !ft_strchr(argv[i], '=');
-		if(!(dict_elem = ft_split(argv[i++], '=')))
+		if (!(dict_elem = ft_split(argv[i++], '=')))
 			return (-1);//ft_exit
-		if(indefier)
+		if (indefier)
 			indefier = ft_check_data((char *)dict_elem[0]);
 		if (!indefier)
 			ft_add_or_change(config, dict_elem, flag);

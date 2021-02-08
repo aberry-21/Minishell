@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:26:58 by aberry            #+#    #+#             */
-/*   Updated: 2021/01/25 21:26:58 by aberry           ###   ########.fr       */
+/*   Updated: 2021/02/06 02:12:25 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int			ft_chdir(char *path, t_shell *config)
 		ft_putstr_fd(": ", 2);
 		ft_putendl_fd(strerror(errno), 2);
 	}
-	return 0; 
+	return 0;
 }
 
 static int			ft_cd_home(t_shell *config)
@@ -44,7 +44,7 @@ static int			ft_cd_home(t_shell *config)
 	home = ft_dict_get(config->env, "HOME");
 	if (home)
 	{
-		if(!ft_strcmp(home, ""))
+		if (!ft_strcmp(home, ""))
 			home = ".";
 		return (ft_chdir(home, config));
 	}
@@ -76,5 +76,5 @@ int			ft_cd(char *path, t_shell *config)
 		ft_cd_oldpwd(config);
 	else
 		ft_chdir(path, config);
-	return 0; 
+	return 0;
 }
