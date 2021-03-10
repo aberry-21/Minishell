@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 07:48:07 by telron            #+#    #+#             */
-/*   Updated: 2020/12/17 15:57:30 by telron           ###   ########.fr       */
+/*   Updated: 2021/02/28 15:15:05 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_dict	*ft_dict_init_pro(size_t max_elem)
 	}
 	result->count_elem = 0;
 	result->max_elem = max_elem;
-	result->list = (t_dict_elem **)ft_calloc(\
+	result->hash_table = (t_dict_elem **)ft_calloc(\
 		(result->max_elem + 1),\
 		sizeof(t_dict_elem *));
-	if (!result->list)
+	if (!result->hash_table)
 	{
 		free(result);
 		return ((t_dict *)0);

@@ -6,13 +6,13 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 07:44:26 by telron            #+#    #+#             */
-/*   Updated: 2020/12/17 15:56:56 by telron           ###   ########.fr       */
+/*   Updated: 2021/03/01 05:41:36 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dict.h"
 
-int					ft_dict_add(t_dict **dict, const char *key, void *content)
+int					ft_dict_add(t_dict **dict, const char *key, void *value)
 {
 	size_t		index;
 	t_dict_elem *now;
@@ -22,21 +22,21 @@ int					ft_dict_add(t_dict **dict, const char *key, void *content)
 		if (ft_dict_double(dict) == -1)
 			return (-1);
 	index = ft_dict_hash_function(key, (*dict)->max_elem);
-	if (!(now = (*dict)->list[index]))
+	if (!(now = (*dict)->hash_table[index]))
 	{
-		if (!(elem = ft_dict_elem_init(key, content)))
+		if (!(elem = ft_dict_elem_init(key, value)))
 			return (-1);
-		(*dict)->list[index] = elem;
+		(*dict)->hash_table[index] = elem;
 	}
 	else if ((elem = ft_dict_get_elem_by_key(now, key)))
 	{
-		elem->content = content;
+		elem->list.content = value;
 		return (0);
 	}
-	else if (!(elem = ft_dict_elem_init(key, content)))
+	else if (!(elem = ft_dict_elem_init(key, value)))
 		return (-1);
 	else
-		ft_dict_elem_add_back(&now, elem);
+		ft_lstadd_back((t_list **)&now, (t_list *)elem);
 	(*dict)->count_elem++;
 	return (0);
 }

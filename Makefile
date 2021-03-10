@@ -4,45 +4,170 @@ NAME		=	minishell
 
 CC			=	gcc
 
-CFLAGS		=	-I ./includes -I ./tools/dict/includes/ -I ./tools/libft/includes/ -I ./tools/list/includes/ -I ./tools/dlist/includes/ -I ./tools/line/includes/
+LIBS		=	$(addprefix ./tools/, libft list dlist line dict list)
 
-FILES		=	src/main.c\
-				src/ft_put_line.c\
-				src/input/input.c src/reload_signature.c\
-				src/launch_executable.c\
-				src/env/env_utils.c\
-				src/builtins/ft_cd.c\
-				src/builtins/ft_export.c\
-				src/builtins/ft_unset.c\
-				src/redirections.c\
-				src/pipe.c\
+INC			=	$(addprefix -I, $(addsuffix /includes/, . $(LIBS)))
 
+CFLAGS		=	-Wall -Wextra -Werror -O3 -MMD $(INC) $(ADD_FLAGS)
+
+FILES		=	$(addprefix src/,\
+					main.c exit.c\
+					$(addprefix builtins/,\
+						cd.c echo.c pwd.c unset.c exit.c export.c\
+					)\
+					$(addprefix environment/,\
+						$(addprefix export/,\
+							print.c\
+						)\
+						$(addprefix for_executable/,\
+							create_env.c\
+						)\
+						$(addprefix initialization/,\
+							init.c\
+							$(addprefix dynamic_value_functions/,\
+								home.c pwd.c random.c exit_code.c\
+							)\
+							$(addprefix initialization_functions/,\
+								exit_code.c home.c oldpwd.c others.c pid.c pwd.c random.c shlvl.c\
+							)\
+						)\
+						$(addprefix utils/,\
+							variable_delone.c variable_new.c variable_get_by_user.c\
+							variable_get_by_system.c variable_change_by_user.c\
+							oldpwd_reload.c\
+						)\
+					)\
+					$(addprefix prompt/,\
+						$(addprefix promt_in_input/,\
+							prompt.c prompt_utils.c\
+						)\
+						$(addprefix wildcard/,\
+							ft_parse_wildcard_recursion_set_path_and_pattern.c wildcard.c ft_wildcard_find_str.c\
+							ft_parse_wildcard_recursion.c ft_wildcard_set_pattern_array.c wildcard_utils.c\
+						)\
+					)\
+					$(addprefix input/,\
+						input.c mode.c normal.c insert.c script.c\
+						$(addprefix graphical/,\
+							$(addprefix cmd_line/,\
+								get.c new.c delone.c\
+							)\
+							$(addprefix command/,\
+								get.c new.c reload_len_prefix.c render.c com2com_copy.c\
+								delone.c\
+							)\
+							$(addprefix output_line/,\
+								new.c delete.c\
+							)\
+							$(addprefix signature/,\
+								render.c\
+							)\
+							$(addprefix utils/,\
+								move.c\
+							)\
+							$(addprefix view/,\
+								clean.c render.c\
+							)\
+						)\
+						$(addprefix keys/,\
+							any_key.c to_line_or_end.c control_d.c cursor_right.c key_enter.c line_home.c\
+							classic_enter.c to_line_or_home.c cursor_down.c cursor_up.c key_enter_line.c\
+							skip_word_left.c command_down.c command_up.c cursor_left.c key_delete.c\
+							line_end.c skip_word_right.c mode_to_normal.c mode_to_insert.c\
+							new_line_down.c new_line_up.c cursor_left_to_insert.c cursor_right_to_insert.c\
+							cursor_up_to_insert.c cursor_down_to_insert.c line_add_clipboard.c\
+							clipboard_paste_down.c clipboard_clear.c line_to_clipboard.c line_delete.c\
+							tab_prompt.c command_new.c to_command_or_home.c command_delete.c\
+						)\
+						$(addprefix utils/,\
+							ft_cursor_sync.c get_length_number.c\
+						)\
+					)\
+					$(addprefix interpreter/,\
+						$(addprefix launch/,\
+							launch_executable.c find_command.c\
+						)\
+						$(addprefix parse/,\
+							run.c error.c\
+							$(addprefix build_tree/,\
+								command.c build.c redirection.c tokenize.c group.c\
+								pipe.c sequence.c variable.c double_quotes.c quotes.c\
+								separator.c string.c guard.c\
+							)\
+							$(addprefix classes/,\
+								$(addprefix element/,\
+									checker.c destructor.c run.c to_immutable.c\
+								)\
+								$(addprefix sequence/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix pipe/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix and/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix or/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix group/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix string/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix immutable/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix variable/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix separator/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix redirection/,\
+									checker.c create.c destructor.c run.c\
+								)\
+								$(addprefix command/,\
+									checker.c create.c destructor.c run.c\
+								)\
+							)\
+						)\
+					)\
+					$(addprefix utils/,\
+						delete_strings.c\
+					)\
+				)
 
 OBJS		=	$(FILES:.c=.o)
+DEPENDS		=	$(OBJS:.o=.d)
 
 all:		$(NAME)
 
+debug:		CFLAGS	+= -fsanitize=address -g
+debug:		all;
+
 $(NAME):	$(OBJS) | tools
-	${CC} ${CFLAGS} ${OBJS} -L ./tools/dict/ -L ./tools/libft/ -L ./tools/line/ -L ./tools/dlist/ -ldlist -lft -lline -ldict -o ${NAME}
+	${CC} ${CFLAGS} ${OBJS} $(addprefix -L, $(LIBS)) -ldlist -lft -lline -ldict -llist -o ${NAME}
+
+define		ft_tools
+	for library in $(LIBS) ; do \
+		make $(1) -C $$library ;\
+	done
+endef
 
 tools:
-	make -C ./tools/libft/
-	make -C ./tools/line/
-	make -C ./tools/dlist/
-	make -C ./tools/dict/
+	$(call ft_tools, )
 
 clean:
-	rm -rf ${OBJS}
-	make clean -C ./tools/libft/
-	make clean -C ./tools/line/
-	make clean -C ./tools/dlist/
-	make clean -C ./tools/dict/
+	$(call ft_tools, clean)
+	rm -rf ${OBJS} ${DEPENDS}
+	rm -rf ./sh_tests/out
 
 fclean:		clean
 	rm -rf ${NAME}
-	make fclean -C ./tools/libft/
-	make fclean -C ./tools/line/
-	make fclean -C ./tools/dlist/
-	make fclean -C ./tools/dict/
+	$(call ft_tools, fclean)
 
 re:			fclean all
+
+-include ${DEPENDS}

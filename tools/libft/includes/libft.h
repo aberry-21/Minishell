@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: e.balabanov <e.balabanov@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 12:44:10 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 03:36:48 by telron           ###   ########.fr       */
+/*   Updated: 2021/02/17 23:38:22 by e.balabanov      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char				*ft_strnstr(\
 ** Берёт string и конвертирует её в тип int,
 ** предварительно убирая символы isspace в начале
 */
-int					ft_atoi(char *string);
+int					ft_atoi(const char *string);
 
 /*
 ** Сравнивает строки str1 и str2
@@ -249,17 +249,17 @@ char				*ft_strtrim(char const *str, char const *pattern);
 /*
 ** Вывести символ c по дескриптору fd
 */
-void				ft_putchar_fd(char c, int fd);
+void				ft_putchar_fd(const char c, int fd);
 
 /*
 ** Вывести строку str по дескриптору fd
 */
-void				ft_putstr_fd(char *str, int fd);
+void				ft_putstr_fd(const char *str, int fd);
 
 /*
 ** Вывести строку str с '\n' по дескриптору fd
 */
-void				ft_putendl_fd(char *str, int fd);
+void				ft_putendl_fd(const char *str, int fd);
 
 /*
 ** Вывести число num по дескриптору fd

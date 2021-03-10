@@ -6,21 +6,23 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 19:14:41 by telron            #+#    #+#             */
-/*   Updated: 2020/11/07 01:37:37 by telron           ###   ########.fr       */
+/*   Updated: 2021/02/16 09:14:19 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_min(size_t first, size_t second)
-{
-	return (first > second ? second : first);
-}
-
 int				ft_strncmp(const char *str1, const char *str2, size_t size)
 {
-	size_t min_len;
+	size_t	counter;
 
-	min_len = ft_min(ft_strlen(str1), ft_strlen(str2));
-	return (ft_memcmp(str1, str2, ft_min(size, min_len + 1)));
+	counter = 0;
+	while (counter < size)
+	{
+		if ((str1[counter] != str2[counter]) || !str1[counter])
+			return ((unsigned char)str1[counter] -\
+				(unsigned char)str2[counter]);
+		counter++;
+	}
+	return (0);
 }

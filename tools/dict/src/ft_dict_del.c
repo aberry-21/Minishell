@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 07:39:07 by telron            #+#    #+#             */
-/*   Updated: 2020/12/17 15:56:52 by telron           ###   ########.fr       */
+/*   Updated: 2021/02/28 15:12:57 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void	ft_dict_del(t_dict *dict, const char *key)
 	size_t		index;
 
 	index = ft_dict_hash_function(key, dict->max_elem);
-	elem = dict->list[index];
+	elem = dict->hash_table[index];
 	last = 0;
 	while (elem)
 	{
 		if (!ft_strcmp(elem->key, key))
 		{
 			if (last)
-				last->next = elem->next;
+				last->list.next = elem->list.next;
 			else
-				dict->list[index] = elem->next;
+				dict->hash_table[index] = (t_dict_elem *)elem->list.next;
 			free(elem);
 			dict->count_elem--;
 			return ;
 		}
 		last = elem;
-		elem = elem->next;
+		elem = (t_dict_elem *)elem->list.next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:01:45 by telron            #+#    #+#             */
-/*   Updated: 2021/01/22 07:50:15 by telron           ###   ########.fr       */
+/*   Updated: 2021/01/28 22:59:09 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,11 @@ t_line			*ft_line_insert_chr(t_line *line, char chr, size_t index);
 ** Обрезать line по определённому индексу
 */
 t_line			*ft_line_cut_index(t_line *line, size_t index);
+
+/*
+** Создаёт новый t_line из line, обрезанный по индексам start_index и stop_index
+*/
+t_line			*ft_line_sub_line(t_line *line, size_t start_index,\
+							size_t stop_index);
 
 #endif

@@ -8,7 +8,7 @@ CFLAGS		=	-Wall -Wextra -Werror -I ./includes
 
 NAME_FILES	=	ft_dlstadd_left.c ft_dlstclear_right.c ft_dlstiter_right.c\
 				ft_dlstright.c ft_dlstadd_right.c ft_dlstdelone.c\
-				ft_dlstiteri_all_right.c ft_dlstsize.c\
+				ft_dlstiteri.c ft_dlstsize.c\
 				ft_dlstadd_right_content.c ft_dlstadd_left_content.c\
 				ft_dlstiteri_right.c ft_dlstsize_left.c ft_dlstadd_sort.c\
 				ft_dlstiter_all_left.c ft_dlstleft.c ft_dlstsize_right.c\

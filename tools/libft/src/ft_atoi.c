@@ -38,7 +38,7 @@
 ** 		Полученый int в результате конвертации
 */
 
-int		ft_atoi(char *string)
+int		ft_atoi(const char *string)
 {
 	int		positive;
 	size_t	result;

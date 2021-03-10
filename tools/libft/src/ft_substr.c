@@ -6,13 +6,13 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:14:03 by telron            #+#    #+#             */
-/*   Updated: 2020/11/05 02:25:54 by telron           ###   ########.fr       */
+/*   Updated: 2021/02/15 11:36:33 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_min(int first, int second)
+static size_t	ft_min(size_t first, size_t second)
 {
 	return (first > second ? second : first);
 }

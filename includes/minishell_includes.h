@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_includes.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olebedev <olebedev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 21:25:57 by telron            #+#    #+#             */
-/*   Updated: 2021/01/22 20:20:33 by olebedev         ###   ########.fr       */
+/*   Updated: 2021/02/17 11:51:09 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_INCLUDES_H
 # define MINISHELL_INCLUDES_H
@@ -21,12 +20,16 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <termios.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <errno.h>
 # include "libft.h"
 # include "list.h"
 # include "dlist.h"
-# include "dict.h"
 # include "line.h"
+# include "dict.h"
+# include "color_scheme.h"
+# include <sys/ioctl.h>
 # include <sys/stat.h>
-# include <sys/types.h>
 
 #endif
