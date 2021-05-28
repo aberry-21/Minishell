@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 18:33:39 by telron            #+#    #+#             */
-/*   Updated: 2021/02/20 04:00:17 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/13 14:35:30 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static t_parse_element	\
 
 	elem_sequence = 0;
 	result = 0;
-	while (*tokens)
+	while (*tokens && !result)
 	{
 		if (!(new_mode = ft_get_mode((*tokens)->content)))
 		{
@@ -83,18 +83,13 @@ static t_parse_element	\
 				return (ft_garbage_collector(elem_sequence));
 			(*tokens)->content = 0;
 		}
-		else
-		{
-			if (!(result = ft_create_item_mod(config, &elem_sequence, *mode)))
-				return (ft_garbage_collector(elem_sequence));
-			(*tokens) = (*tokens)->right;
-			break ;
-		}
+		else if (!(result = ft_create_item_mod(config, &elem_sequence, *mode)))
+			return (ft_garbage_collector(elem_sequence));
 		(*tokens) = (*tokens)->right;
 	}
-	if (!result)
-		if (!(result = ft_create_item_mod(config, &elem_sequence, *mode)))
-			return (ft_garbage_collector(elem_sequence));
+	if (!result &&\
+		!(result = ft_create_item_mod(config, &elem_sequence, *mode)))
+		return (ft_garbage_collector(elem_sequence));
 	*mode = new_mode;
 	return (result);
 }
@@ -122,9 +117,8 @@ t_parse_element			\
 		{
 			if (!ft_dlstadd_right_content(&dlist_sequence, elem_seq))
 				return (ft_garbage_collector(dlist_sequence));
-			if (!result)
-				if (!(result = ft_parse_sequence_create(dlist_sequence)))
-					return (ft_garbage_collector(dlist_sequence));
+			if (!result && !(result = ft_parse_sequence_create(dlist_sequence)))
+				return (ft_garbage_collector(dlist_sequence));
 		}
 		else
 			result = elem_seq;

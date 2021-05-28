@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:15:31 by telron            #+#    #+#             */
-/*   Updated: 2021/02/19 23:19:01 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 15:44:10 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static t_dlist		*ft_to_argums(\
 		}
 		argums = argums->right;
 	}
-	return (dlist_for_create_pp);
+	return (ft_dlstleft(dlist_for_create_pp));
 }
 
 void				ft_parse_command_run(t_shell *config, t_stream *stream,\

@@ -6,13 +6,16 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 22:07:27 by telron            #+#    #+#             */
-/*   Updated: 2021/03/02 11:11:06 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 17:12:49 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		ft_env_var_init_pid(t_shell __attribute__((unused)) *config, t_dict **environment, void *ft_dynamic_value)
+void		ft_env_var_init_pid(\
+					t_shell __attribute__((unused)) *config,\
+					t_dict **environment,\
+					void *ft_dynamic_value)
 {
 	pid_t		main_pid;
 	char		*string_pid;

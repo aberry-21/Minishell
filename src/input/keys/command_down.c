@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_down.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 05:09:24 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 16:12:12 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:21:52 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void\
 		count_command = 1;
 	while (config->view.command->transport.right && count_command--)
 	{
-		config->view.command = (t_command *)config->view.command->transport.right->content;
+		config->view.command = \
+				(t_command *)config->view.command->transport.right->content;
 		config->view.index_command += 1;
 	}
 }

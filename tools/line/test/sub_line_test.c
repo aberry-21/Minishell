@@ -6,12 +6,12 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 21:39:27 by telron            #+#    #+#             */
-/*   Updated: 2021/01/28 23:20:20 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:32:21 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_test.h"
-#include <stdio.h>
+
 static void	ft_case(const char *string, size_t start, size_t stop)
 {
 	t_line	*line_src;

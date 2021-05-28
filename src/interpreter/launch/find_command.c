@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:01:27 by aberry            #+#    #+#             */
-/*   Updated: 2021/03/01 08:57:19 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/18 19:07:19 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,27 @@ static	int		ft_check_one_path(t_shell *config, const char *line_command)
 	int				result;
 
 	result = stat(line_command, &filestat);
-	if (!result && !(filestat.st_mode & S_IXUSR))// пользователь не имеет право выполнения (или группа?)
+	if (!result && !(filestat.st_mode & S_IXUSR))
 	{
-		ft_error_print(config, "ft_launch_executable", line_command, "Permission denied");
+		ft_error_print(config, "ft_launch_executable", \
+											line_command, "Permission denied");
 		result = -1;
 	}
 	return (result);
 }
 
-static char		*ft_check_all_path(t_shell *config, const char *line_command, char **all_path)
+static char		*ft_check_all_path(t_shell *config, const char *line_command, \
+															char **all_path)
 {
 	size_t		counter;
 
 	counter = 0;
 	ft_strjoin_command(all_path, line_command);
 	while (all_path[counter])
+	{
 		if (!ft_check_one_path(config, all_path[counter++]))
 			return (ft_strdup(all_path[counter - 1]));
+	}
 	return ((char *)NULL);
 }
 
@@ -64,7 +68,8 @@ char			*ft_find_command(t_shell *config, const char *line_command)
 	char		**all_path;
 	char		*path_to_build;
 
-	if (!ft_strcmp(line_command, ".") || !ft_strcmp(line_command, "..") || line_command[0] == 0)
+	if (!ft_strcmp(line_command, ".") || !ft_strcmp(line_command, "..") \
+													|| line_command[0] == 0)
 		return (0);
 	if (!ft_check_one_path(config, line_command))
 		return (ft_strdup(line_command));

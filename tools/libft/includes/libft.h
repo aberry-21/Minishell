@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: e.balabanov <e.balabanov@student.42.fr>    +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 12:44:10 by telron            #+#    #+#             */
-/*   Updated: 2021/02/17 23:38:22 by e.balabanov      ###   ########.fr       */
+/*   Updated: 2021/04/15 19:58:37 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ int					ft_atoi(const char *string);
 ** Сравнивает строки str1 и str2
 */
 int					ft_strcmp(const char *str1, const char *str2);
+
+/*
+** Сравнивает строки str1 и str2, игнорируя регистры (upper/lower case)
+*/
+int					ft_strcmp_i(const char *str1, const char *str2);
 
 /*
 ** Сравнивает строки str1 и str2, не более size символов

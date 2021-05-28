@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parse_structs.h                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:56:12 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 15:18:12 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 19:33:37 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct			s_stream
 	int					exit_code;
 }						t_stream;
 
+typedef union u_content			t_content;
 typedef struct s_parse_element	t_parse_element;
-typedef union u_content	t_content;
 
 typedef struct			s_executable
 {
@@ -112,7 +112,7 @@ typedef struct			s_parse_command
 	t_dlist				*dlist_argums;
 }						t_parse_command;
 
-typedef union			u_content
+union					u_content
 {
 	t_parse_sequence	sequence;
 	t_parse_pipe		pipe;
@@ -125,17 +125,15 @@ typedef union			u_content
 	t_parse_separator	separator;
 	t_parse_redirection	redirection;
 	t_parse_command		command;
-}						t_content;
+};
 
-typedef struct			s_parse_element
+struct					s_parse_element
 {
 	char				type;
-
 	void				*checker;
 	void				*run;
 	void				*destructor;
-
-	t_content			content;
-}						t_parse_element;
+	union u_content		content;
+};
 
 #endif

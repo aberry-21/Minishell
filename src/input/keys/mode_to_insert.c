@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 05:43:32 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 16:18:58 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/27 17:07:46 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void		ft_input_keys_mode_to_insert(t_shell *config)
 {
-	config->view.mode = MODE_INSERT;
+	config->view.mode ^= MODE_NORMAL;
+	config->view.mode |= MODE_INSERT;
 }

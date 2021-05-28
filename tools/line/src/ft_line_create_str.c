@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 02:47:33 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 02:50:09 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:35:01 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_line		*ft_line_create_str(const char *string)
 {
 	t_line	*result;
+
 	result = ft_line_new(0);
 	if (result)
 		if (!ft_line_cpy_str(result, string))

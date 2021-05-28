@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 21:33:37 by telron            #+#    #+#             */
-/*   Updated: 2021/02/28 13:39:21 by aberry           ###   ########.fr       */
+/*   Updated: 2021/05/28 00:43:30 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,6 @@ static int		ft_prompt_directory(t_line *line, t_dlist **res)
 	return (0);
 }
 
-static void		ft_strcmp_line(t_line *line, t_dlist **res)
-{
-	t_dlist		*tmp_dlst;
-	t_line		*pattern;
-	t_line		*tmp_line;
-	int			len_line;
-
-	len_line = line->length;
-	tmp_dlst = *res;
-	pattern = ft_line_create_line((t_line*)(tmp_dlst->content));
-	if (!pattern)
-		return ;
-	while (tmp_dlst)
-	{
-		tmp_line = (t_line*)(tmp_dlst->content);
-		while (ft_strncmp(pattern->string, tmp_line->string,\
-											pattern->length))
-			ft_line_del_chr(pattern, pattern->length - 1);
-		tmp_dlst = tmp_dlst->right;
-	}
-	ft_dlstclear(res, (void *)ft_line_del);
-	while (len_line--)
-		ft_line_del_chr(pattern, 0);
-	ft_dlstadd_right_content(res, pattern);
-}
-
 t_dlist			*ft_prompt(t_shell *config, t_line *line)
 {
 	t_dlist		*res;
@@ -95,16 +69,18 @@ t_dlist			*ft_prompt(t_shell *config, t_line *line)
 	res = 0;
 	if (!(line_copy = ft_line_create_str(line->string)))
 		return (res);
-	if (line_copy->string[0] == '.' || line_copy->string[0] == '/')
-		while (!ft_isascii(line_copy->string[0]))
-			ft_line_del_chr(line_copy, 0);
+	// while (line_copy->length && ft_strchr("./", line_copy->string[0]))
+	// 	ft_line_del_chr(line_copy, 0);
+	// ft_putendl_fd(line_copy->string, 1);
 	if (ft_prompt_directory(line_copy, &res))
 		ft_dlstclear(&res, (void *)ft_line_del);
 	if (ft_env_var_get_by_user(config, "PATH"))
 		if (ft_prompt_command(config, line_copy, &res))
 			ft_dlstclear(&res, (void *)ft_line_del);
-	if (res)
-		ft_strcmp_line(line, &res);
+	// if (res)
+	//  	ft_strcmp_line(line, &res);
 	ft_line_del(line_copy);
 	return (res);
 }
+
+

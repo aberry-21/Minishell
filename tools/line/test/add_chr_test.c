@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 06:58:14 by telron            #+#    #+#             */
-/*   Updated: 2021/01/18 07:41:26 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:30:48 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	ft_case_with_len(size_t start_size, const char *string)
 		ft_line_add_chr(line, string[counter]);
 		counter++;
 	}
-	if (!ft_strcmp(line->string, string) && (len == line->length) && (len < line->allocated))
+	if (!ft_strcmp(line->string, string) &&\
+		(len == line->length) && (len < line->allocated))
 		ft_putstr_fd("\033[0;32m[OK]\033[0m", 1);
 	else
 		ft_putstr_fd("\033[0;31m[KO]\033[0m", 2);

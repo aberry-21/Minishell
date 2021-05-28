@@ -6,7 +6,7 @@
 /*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 16:10:20 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/28 13:39:56 by aberry           ###   ########.fr       */
+/*   Updated: 2021/04/24 18:09:24 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_line					*ft_wildcard_create_line(t_line *path,\
 }
 
 int						ft_parse_wildcard_recursion(t_dlist **res, t_line *pat,\
-														t_line *org_pat)
+																t_line *org_pat)
 {
 	t_line			*path;
 	t_line			*pat_tmp;

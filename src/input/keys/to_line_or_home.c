@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_line_or_home.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 11:33:50 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 16:07:49 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:29:01 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void		ft_input_keys_to_line_or_home(t_shell *config)
 	t_command	*command;
 
 	command = ft_input_command_get(config);
-	command->cmd_line = (t_cmd_line *)ft_dlstleft(&command->cmd_line->transport)->content;
+	command->cmd_line = \
+			(t_cmd_line *)ft_dlstleft(&command->cmd_line->transport)->content;
 	if (config->view.mode_normal.digit_for_normal > 1)
 	{
 		config->view.mode_normal.digit_for_normal--;

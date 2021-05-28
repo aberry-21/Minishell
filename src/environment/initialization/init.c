@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 19:14:01 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 07:21:49 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/18 19:44:57 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ static void			ft_new_variables(t_shell *config, t_dict **environment)
 		counter++;
 	}
 }
+
+// static void			ft_env_free_alloc_data(t_variable *variable)
+// {
+// 	if (variable)
+// 	{
+// 		free(variable->name);
+// 		free(variable->value_for_exe);
+// 		free(variable->value);
+// 		free(variable);
+// 	}
+// }
 
 t_dict				*ft_env_init(t_shell *config,\
 								const char *import_environment[])

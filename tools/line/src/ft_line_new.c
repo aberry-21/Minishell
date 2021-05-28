@@ -6,13 +6,13 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 23:17:11 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 01:12:01 by telron           ###   ########.fr       */
+/*   Updated: 2021/03/24 11:29:32 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line.h"
 
-t_line		*ft_line_new(size_t init_size)
+t_line			*ft_line_new(size_t init_size)
 {
 	t_line	*result;
 

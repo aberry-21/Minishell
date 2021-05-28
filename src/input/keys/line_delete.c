@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_delete.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 00:00:54 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 21:42:12 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:27:05 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void		ft_input_keys_line_delete(t_shell *config)
 	command = ft_input_command_get(config);
 	dlist = &command->cmd_line->transport;
 	count_line = config->view.mode_normal.digit_for_normal;
-	if (!count_line)
-		count_line = 1;
+	count_line = !count_line ? 1 : count_line;
 	ft_input_keys_line_to_clipboard(config);
 	while (dlist && count_line--)
 	{

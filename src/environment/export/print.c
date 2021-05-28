@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 13:54:53 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/19 03:40:10 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/18 19:51:50 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int			ft_env_print_for_export(t_shell *config)
 	size_t		counter;
 
 	counter = 0;
-	if(!(keys = ft_dict_get_keys(config->environment)))
+	if (!(keys = ft_dict_get_keys(config->environment)))
 	{
 		ft_error_print(config, "export", "malloc", "change or add");
 		return (12);

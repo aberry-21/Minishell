@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 21:04:32 by telron            #+#    #+#             */
-/*   Updated: 2021/03/02 11:10:18 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 17:14:51 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@ void\
 
 	pwd = ft_dict_get(config->environment, "PWD");
 	oldpwd = ft_dict_get(config->environment, "OLDPWD");
-	if (pwd && oldpwd && pwd->value)
+	if (!(pwd && oldpwd && pwd->value))
+		return ;
+	value = ft_strdup(pwd->value);
+	value_for_exe = ft_strjoin("OLDPWD=", pwd->value);
+	if (value && value_for_exe)
 	{
-		value = ft_strdup(pwd->value);
-		value_for_exe = ft_strjoin("OLDPWD=", pwd->value);
-		if (value && value_for_exe)
-		{
-			free(oldpwd->value);
-			free(oldpwd->value_for_exe);
-			oldpwd->value = value;
-			oldpwd->value_for_exe = value_for_exe;
-			oldpwd->attributes = pwd->attributes &\
-				(VAR_ATTR_INVISIBLE | VAR_ATTR_NOUNSET | VAR_ATTR_TO_EXECUTBLE);
-		}
-		else
-		{
-			free(value);
-			free(value_for_exe);
-		}
+		free(oldpwd->value);
+		free(oldpwd->value_for_exe);
+		oldpwd->value = value;
+		oldpwd->value_for_exe = value_for_exe;
+		oldpwd->attributes = pwd->attributes &\
+			(VAR_ATTR_INVISIBLE | VAR_ATTR_NOUNSET | VAR_ATTR_TO_EXECUTBLE);
+	}
+	else
+	{
+		free(value);
+		free(value_for_exe);
 	}
 }

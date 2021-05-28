@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:27:08 by aberry            #+#    #+#             */
-/*   Updated: 2021/03/02 11:13:36 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/17 19:42:13 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ static int		ft_check_data(t_shell *config, const char *str)
 	int		identifier_error;
 
 	counter = 0;
-	identifier_error = !ft_isalpha(str[0]);
+	identifier_error = !(ft_isalpha(str[0]) || str[counter] == '_'); // Проверить
 	while (str[counter] && !identifier_error && str[counter] != '=')
-		identifier_error = !ft_isalnum(str[counter++]);
+	{
+		identifier_error = !(ft_isalnum(str[counter]) || str[counter] == '_');
+		counter++;
+	}
 	if (identifier_error)
 		ft_error_print(config, "export", str, "not a valid identifier");
 	return (identifier_error);
@@ -37,7 +40,7 @@ int				ft_builtin_export(t_shell *config, const char *argv[])
 		return (ft_env_print_for_export(config));
 	while (argv[counter])
 	{
-		if(!ft_check_data(config, argv[counter]))
+		if (!ft_check_data(config, argv[counter]))
 		{
 			if (!ft_env_var_change_by_user(config, argv[counter]))
 			{

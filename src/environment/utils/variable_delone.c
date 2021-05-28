@@ -6,13 +6,16 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 20:39:45 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/17 11:54:55 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/18 20:16:36 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env_var_delone(t_dict *environment, t_variable *variable, char *key)
+void	ft_env_var_delone(\
+					t_dict *environment,\
+					t_variable *variable,\
+					const char *key)
 {
 	t_variable		*variable_del;
 

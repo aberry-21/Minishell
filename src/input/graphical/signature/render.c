@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 07:29:53 by telron            #+#    #+#             */
-/*   Updated: 2021/03/02 10:58:28 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/27 19:21:31 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,13 @@ static void	\
 }
 
 void		\
-	ft_input_sugnature_render(\
+	ft_input_sugnature_part(\
 			t_shell *config)
 {
 	t_command	*command;
-	size_t		counter;
 
 	command = ft_input_command_get(config);
-	ft_line_del(config->view.signature);
-	config->view.signature = ft_line_create_str("<| minishell | LN ");
+	config->view.signature = ft_line_create_str("<| msh | LN ");
 	ft_add_colon(config->view.signature);
 	ft_line_add_str(config->view.signature, " [");
 	ft_add_number(config->view.signature, command->index_up_line);
@@ -83,25 +81,50 @@ void		\
 	ft_add_number(config->view.signature, command->index_down_line);
 	ft_line_add_str(config->view.signature, "/");
 	ft_add_number(config->view.signature, command->count_cmd_lines);
-	ft_line_add_str(config->view.signature, "] | CMD ");
-	ft_add_colon(config->view.signature);
-	ft_line_add_str(config->view.signature, " [");
-	ft_add_number(config->view.signature, config->view.index_command);
-	ft_line_add_str(config->view.signature, "/");
-	ft_add_number(config->view.signature, config->view.count_command);
-	ft_line_add_str(config->view.signature, "] | ");
-	if (config->view.mode == MODE_INSERT)
-		ft_line_add_str(config->view.signature, "INSERT");
-	else if (config->view.mode == MODE_NORMAL)
+	if (config->view.canvas == CANVAS_BUFFER)
+		ft_line_add_str(config->view.signature, "] | BUFFER");
+	else if (config->view.mode & MODE_NOTE)
 	{
-		ft_line_add_str(config->view.signature, "NORMAL[");
+		ft_line_add_str(config->view.signature, "] | NOTE [");
+		ft_line_add_line(config->view.signature, config->view.mode_note.stop_word);
+		ft_line_add_str(config->view.signature, "]");
+	}
+	else if (config->view.mode & MODE_CHOICE)
+		ft_line_add_str(config->view.signature, "] | CHOISE");
+	else
+	{
+		ft_line_add_str(config->view.signature, "] | CMD ");
+		ft_add_colon(config->view.signature);
+		ft_line_add_str(config->view.signature, " [");
+		ft_add_number(config->view.signature, config->view.index_command);
+		ft_line_add_str(config->view.signature, "/");
+		ft_add_number(config->view.signature, config->view.count_command);
+		ft_line_add_str(config->view.signature, "]");
+	}
+}
+
+void		\
+	ft_input_sugnature_render(\
+			t_shell *config)
+{
+	size_t		counter;
+
+	ft_line_del(config->view.signature);
+	ft_input_sugnature_part(config);
+	if (config->view.mode & MODE_INSERT)
+		ft_line_add_str(config->view.signature, " | INSERT");
+	else if (config->view.mode & MODE_NORMAL)
+	{
+		ft_line_add_str(config->view.signature, " | NORMAL[");
 		if (config->view.mode_normal.digit_for_normal)
-			ft_add_number(config->view.signature, config->view.mode_normal.digit_for_normal);
+			ft_add_number(config->view.signature, \
+					config->view.mode_normal.digit_for_normal);
 		counter = 0;
 		while (counter < config->view.mode_normal.buffer_length)
 		{
 			if (ft_isprint(config->view.mode_normal.input_buffer[counter]))
-				ft_line_add_chr(config->view.signature, config->view.mode_normal.input_buffer[counter]);
+				ft_line_add_chr(config->view.signature, \
+						config->view.mode_normal.input_buffer[counter]);
 			counter++;
 		}
 		ft_line_add_str(config->view.signature, "]");

@@ -6,15 +6,15 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 22:07:17 by telron            #+#    #+#             */
-/*   Updated: 2021/03/02 11:12:16 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 19:03:09 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void		ft_env_var_init_code_exit(\
-                    t_shell __attribute__((unused)) *config,\
-                    t_dict **environment, void *ft_dynamic_value)
+					t_shell __attribute__((unused)) *config,\
+					t_dict **environment, void *ft_dynamic_value)
 {
 	t_variable	*var_exit;
 

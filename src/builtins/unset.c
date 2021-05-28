@@ -6,11 +6,26 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 21:27:14 by aberry            #+#    #+#             */
-/*   Updated: 2021/03/02 11:13:54 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/17 20:05:36 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int		ft_check_data(const char *str)
+{
+	size_t	counter;
+	int		identifier_error;
+
+	counter = 0;
+	identifier_error = !(ft_isalpha(str[0]) || str[counter] == '_');
+	while (str[counter] && !identifier_error && str[counter] != '=')
+	{
+		identifier_error = !(ft_isalnum(str[counter]) || str[counter] == '_');
+		counter++;
+	}
+	return (identifier_error);
+}
 
 static int	ft_delete_var(t_shell *config, char *key)
 {
@@ -19,10 +34,8 @@ static int	ft_delete_var(t_shell *config, char *key)
 	int			identifier_error;
 
 	counter = 0;
-	identifier_error = !ft_isalpha(key[0]);
-	if (identifier_error)
-		ft_error_print(config, "unset", key, "not a valid identifier");
-	else
+	identifier_error = ft_check_data(key); // Может ли удалить спец переменные + обработка "_"
+	if (!identifier_error)
 	{
 		variable = ft_dict_get(config->environment, key);
 		if (variable)
@@ -45,11 +58,16 @@ int			ft_builtin_unset(t_shell *config, const char *argv[])
 	int		identifier_error;
 
 	counter = 1;
+	identifier_error = 0;
 	if (!argv)
 		return (0);
 	while (argv[counter])
 	{
-		identifier_error = ft_delete_var(config, (char *)argv[counter]);
+		if (ft_delete_var(config, (char *)argv[counter]))
+		{
+			ft_error_print(config, "unset", argv[counter], "not a valid identifier");
+			identifier_error = 1;
+		}
 		counter++;
 	}
 	return (identifier_error);

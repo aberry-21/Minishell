@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 08:53:54 by telron            #+#    #+#             */
-/*   Updated: 2021/01/18 09:06:31 by telron           ###   ########.fr       */
+/*   Updated: 2021/03/12 04:48:56 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_line		*ft_line_mem_realloc(t_line *line, size_t length)
 			return ((t_line *)0);
 		line->string = alloc_memmory;
 		line->allocated = new_size_allocated;
-		ft_strcpy(line->string, for_free);
+		ft_strcpy(line->string, for_free ? for_free : "");
 		free(for_free);
 	}
 	return (line);

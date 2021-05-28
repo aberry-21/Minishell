@@ -15,7 +15,7 @@ NAME_FILES	=	ft_dlstadd_left.c ft_dlstclear_right.c ft_dlstiter_right.c\
 				ft_dlstclear.c ft_dlstiter_all_right.c ft_dlstmap.c\
 				ft_dlstclear_left.c ft_dlstiter_left.c ft_dlstnew.c\
 				ft_dlstcopy_right.c ft_dlstcopy_left.c ft_dlstinsert.c\
-				ft_dlstrelation.c
+				ft_dlstrelation.c ft_dlstget.c ft_dlstget_content.c
 
 FILES		=	$(addprefix ./src/, $(NAME_FILES))
 

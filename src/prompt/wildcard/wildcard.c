@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 19:38:46 by aberry            #+#    #+#             */
-/*   Updated: 2021/02/28 13:40:46 by aberry           ###   ########.fr       */
+/*   Updated: 2021/04/24 19:44:13 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**		Очистить лист в случае ошибки и закрытие fd
-*/
-
-t_dlist			*ft_parse_wildcard(t_line *str)
+t_dlist	*ft_parse_wildcard(t_line *str)
 {
 	t_dlist			*result;
 	t_line			*pattern;

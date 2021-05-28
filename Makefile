@@ -4,16 +4,22 @@ NAME		=	minishell
 
 CC			=	gcc
 
+CONFIG_DIR	=	${HOME}/.msh/
+
+HISTORY_DIR	=	history/
+
+PATH_HISTORY=	${CONFIG_DIR}${HISTORY_DIR}
+
 LIBS		=	$(addprefix ./tools/, libft list dlist line dict list)
 
 INC			=	$(addprefix -I, $(addsuffix /includes/, . $(LIBS)))
 
-CFLAGS		=	-Wall -Wextra -Werror -O3 -MMD $(INC) $(ADD_FLAGS)
+CFLAGS		=	-Wall -Wextra -Werror -O3 -MMD $(INC) -D PATH_HISTORY=\"${PATH_HISTORY}\"
 
 FILES		=	$(addprefix src/,\
-					main.c exit.c\
+					main.c exit.c save_history.c load_history.c\
 					$(addprefix builtins/,\
-						cd.c echo.c pwd.c unset.c exit.c export.c\
+						cd.c echo.c pwd.c unset.c exit.c export.c env.c\
 					)\
 					$(addprefix environment/,\
 						$(addprefix export/,\
@@ -25,7 +31,7 @@ FILES		=	$(addprefix src/,\
 						$(addprefix initialization/,\
 							init.c\
 							$(addprefix dynamic_value_functions/,\
-								home.c pwd.c random.c exit_code.c\
+								pwd.c random.c exit_code.c\
 							)\
 							$(addprefix initialization_functions/,\
 								exit_code.c home.c oldpwd.c others.c pid.c pwd.c random.c shlvl.c\
@@ -34,10 +40,13 @@ FILES		=	$(addprefix src/,\
 						$(addprefix utils/,\
 							variable_delone.c variable_new.c variable_get_by_user.c\
 							variable_get_by_system.c variable_change_by_user.c\
-							oldpwd_reload.c\
+							oldpwd_reload.c delete_env.c\
 						)\
 					)\
 					$(addprefix prompt/,\
+						$(addprefix command_in_history/,\
+							command_in_history.c\
+						)\
 						$(addprefix promt_in_input/,\
 							prompt.c prompt_utils.c\
 						)\
@@ -47,14 +56,29 @@ FILES		=	$(addprefix src/,\
 						)\
 					)\
 					$(addprefix input/,\
-						input.c mode.c normal.c insert.c script.c\
+						mode.c\
+						$(addprefix modes/,\
+							input.c\
+							$(addprefix choice/,\
+								choice.c\
+							)\
+							$(addprefix main/,\
+								normal.c insert.c\
+							)\
+							$(addprefix note/,\
+								note.c note_start.c note_normal.c\
+							)\
+							$(addprefix script/,\
+								script.c\
+							)\
+						)\
 						$(addprefix graphical/,\
 							$(addprefix cmd_line/,\
 								get.c new.c delone.c\
 							)\
 							$(addprefix command/,\
 								get.c new.c reload_len_prefix.c render.c com2com_copy.c\
-								delone.c\
+								delone.c length.c\
 							)\
 							$(addprefix output_line/,\
 								new.c delete.c\
@@ -63,7 +87,7 @@ FILES		=	$(addprefix src/,\
 								render.c\
 							)\
 							$(addprefix utils/,\
-								move.c\
+								del_commands.c get_begin.c input_init_draw.c min.c move.c print_index.c to_line.c\
 							)\
 							$(addprefix view/,\
 								clean.c render.c\
@@ -78,6 +102,7 @@ FILES		=	$(addprefix src/,\
 							cursor_up_to_insert.c cursor_down_to_insert.c line_add_clipboard.c\
 							clipboard_paste_down.c clipboard_clear.c line_to_clipboard.c line_delete.c\
 							tab_prompt.c command_new.c to_command_or_home.c command_delete.c\
+							clipboard_paste_up.c insert_enter.c view_clipbord.c view_main_command.c\
 						)\
 						$(addprefix utils/,\
 							ft_cursor_sync.c get_length_number.c\
@@ -85,7 +110,7 @@ FILES		=	$(addprefix src/,\
 					)\
 					$(addprefix interpreter/,\
 						$(addprefix launch/,\
-							launch_executable.c find_command.c\
+							launch_executable.c find_command.c ft_put_exit_code.c\
 						)\
 						$(addprefix parse/,\
 							run.c error.c\
@@ -147,6 +172,16 @@ all:		$(NAME)
 debug:		CFLAGS	+= -fsanitize=address -g
 debug:		all;
 
+install:	all
+			ln ./${NAME} /usr/local/bin/msh
+			mkdir ${CONFIG_DIR}
+			mkdir ${PATH_HISTORY}
+
+uninstall:	fclean
+			rm -rf /usr/local/bin/msh
+			rm -rf ${CONFIG_DIR}
+			rm -rf ${PATH_HISTORY}
+
 $(NAME):	$(OBJS) | tools
 	${CC} ${CFLAGS} ${OBJS} $(addprefix -L, $(LIBS)) -ldlist -lft -lline -ldict -llist -o ${NAME}
 
@@ -170,4 +205,6 @@ fclean:		clean
 
 re:			fclean all
 
+norm:	fclean
+	norminette ${FILES} ./includes/* ./tools/*
 -include ${DEPENDS}

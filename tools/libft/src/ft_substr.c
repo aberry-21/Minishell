@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:14:03 by telron            #+#    #+#             */
-/*   Updated: 2021/02/15 11:36:33 by telron           ###   ########.fr       */
+/*   Updated: 2021/03/10 03:04:06 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	ft_min(size_t first, size_t second)
 	return (first > second ? second : first);
 }
 
-char		*ft_substr(char const *str, unsigned int start, size_t size)
+char			*ft_substr(char const *str, unsigned int start, size_t size)
 {
 	char	*result;
 	size_t	len;

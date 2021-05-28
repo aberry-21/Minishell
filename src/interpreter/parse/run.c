@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 22:11:46 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 12:05:00 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/13 14:47:12 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static t_line	*ft_build_lines(t_command *command,\
 
 	counter = 0;
 	ptr = (t_line *)-1;
-	dlist = from_the_first_line ?\
-			ft_dlstleft(&command->cmd_line->transport) : &command->cmd_line->transport;
+	dlist = from_the_first_line ? ft_dlstleft(&command->cmd_line->transport) : \
+												&command->cmd_line->transport;
 	line = ft_line_create_str("");
 	while (line && dlist && counter++ < count_lines &&\
 		(insert_cmd_line = (t_cmd_line *)dlist->content))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dlist.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: e.balabanov <e.balabanov@student.42.fr>    +#+  +:+       +#+        */
+/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:52:24 by telron            #+#    #+#             */
-/*   Updated: 2021/02/18 19:50:00 by e.balabanov      ###   ########.fr       */
+/*   Updated: 2021/03/19 04:17:22 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,24 @@ t_dlist				*ft_dlstcopy_right(t_dlist *dlist, void (*del)(void *));
 */
 t_dlist				*ft_dlstmap(t_dlist *lst, void *(*f)(void *),\
 								void (*del)(void *));
+
+/*
+** Находит елемент в двухсвязном списке, который устраивает функцию ft_cmp
+** в которую подаётся content и value
+*/
+t_dlist				*ft_dlstget(\
+								t_dlist *dlist,\
+								void *value,\
+								int (*ft_cmp)(void *, void *));
+
+/*
+** Достаёт контент елемента из двухсвязного списка,
+** который устраивает функцию ft_cmp
+** в которую подаётся content и value
+*/
+void				*ft_dlstget_content(\
+								t_dlist *dlist,\
+								void *value,\
+								int (*ft_cmp)(void *, void *));
 
 #endif

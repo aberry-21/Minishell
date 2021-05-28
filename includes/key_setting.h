@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 03:16:59 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 17:22:23 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/27 15:47:31 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 # include "minishell_structs.h"
 
 void		ft_input_keys_any_key(t_shell *config, char chr);
-
 void		ft_input_keys_mode_to_insert(t_shell *config);
 void		ft_input_keys_mode_to_normal(t_shell *config);
-
 void		ft_input_keys_delete(t_shell *config);
 void		ft_input_keys_cursor_left(t_shell *config);
 void		ft_input_keys_cursor_left_to_insert(t_shell *config);
@@ -31,6 +29,7 @@ void		ft_input_keys_cursor_down(t_shell *config);
 void		ft_input_keys_cursor_down_to_insert(t_shell *config);
 void		ft_input_keys_enter(t_shell *config);
 void		ft_input_keys_enter_line(t_shell *config);
+void		ft_input_keys_insert_enter(t_shell *config);
 void		ft_input_keys_command_up(t_shell *config);
 void		ft_input_keys_command_down(t_shell *config);
 void		ft_input_keys_classic_enter(t_shell *config);
@@ -42,8 +41,10 @@ void		ft_input_keys_to_line_or_home(t_shell *config);
 void		ft_input_keys_to_line_or_end(t_shell *config);
 void		ft_input_keys_new_line_up(t_shell *config);
 void		ft_input_keys_new_line_down(t_shell *config);
-void		ft_input_keys_line_add_clipboard(t_shell *config);//+
+void		ft_input_keys_line_add_clipboard(t_shell *config);
+void		ft_input_keys_clipboard_paste_up(t_shell *config);
 void		ft_input_keys_clipboard_paste_down(t_shell *config);
+void		ft_input_keys_clipboard_paste_up(t_shell *config);
 void		ft_input_keys_clipboard_clear(t_shell *config);
 void		ft_input_keys_line_to_clipboard(t_shell *config);
 void		ft_input_keys_line_delete(t_shell *config);
@@ -51,12 +52,15 @@ void		ft_input_keys_tab_prompt(t_shell *config);
 void		ft_input_keys_command_new(t_shell *config);
 void		ft_input_keys_to_command_or_home(t_shell *config);
 void		ft_input_keys_command_delete(t_shell *config);
-
 void		ft_input_keys_control_d(t_shell *config);
+void		ft_input_keys_view_clipbord(t_shell *config);
+void		ft_input_keys_view_main_command(t_shell *config);
 
-# define MODE_INSERT			0
-# define MODE_NORMAL			1
-# define MODE_SCRIPT			2
+# define MODE_INSERT			(1 << 0)
+# define MODE_NORMAL			(1 << 1)
+# define MODE_SCRIPT			(1 << 2)
+# define MODE_CHOICE			(1 << 3)
+# define MODE_NOTE				(1 << 4)
 
 # define MODE_DEFAULT			MODE_INSERT
 
@@ -95,31 +99,16 @@ void		ft_input_keys_control_d(t_shell *config);
 # define KEY_LINE_TO_CLIPBOARD	{"yy", ft_input_keys_line_to_clipboard}
 # define KEY_CLIPBOARD_DELETE	{"yd", ft_input_keys_clipboard_clear}
 # define KEY_CLIPBOARD_PASTE_DN	{"p", ft_input_keys_clipboard_paste_down}
+# define KEY_CLIPBOARD_PASTE_UP	{"P", ft_input_keys_clipboard_paste_up}
 # define KEY_LINE_DELETE		{"dd", ft_input_keys_line_delete}
-
 # define KEY_COMMAND_LAST		{"z", ft_input_keys_command_up}
 # define KEY_COMMAND_NEXT		{"x", ft_input_keys_command_down}
 # define KEY_COMMAND_NEW		{"cn", ft_input_keys_command_new}
 # define KEY_TO_COMMAND_OR_HOME	{"cc", ft_input_keys_to_command_or_home}
 # define KEY_TO_COMMAND_DELETE	{"cd", ft_input_keys_command_delete}
-
-
-
+# define KEY_VIEW_MAIN			{"cm", ft_input_keys_view_main_command}
+# define KEY_VIEW_CLIBPORD		{"cb", ft_input_keys_view_clipbord}
 
 # define KEY_EXIT_IF_LINE_EMPTY	{"\004", ft_input_keys_control_d}
-
-# define SET_KEYS				{KEY_MODE_TO_INSERT, KEY_BACKSPACE,\
-KEY_CURSOR_LEFT_1, KEY_CURSOR_RIGHT_1, KEY_CLIPBOARD_PASTE_DN,\
-KEY_CURSOR_UP_1, KEY_CURSOR_DOWN_1, KEY_CURSOR_LEFT_2, KEY_CURSOR_RIGHT_2,\
-KEY_CURSOR_UP_2, KEY_CURSOR_DOWN_2, KEY_CURSOR_LEFT_3, KEY_CURSOR_RIGHT_3,\
-KEY_CURSOR_UP_3, KEY_CURSOR_DOWN_3, KEY_EXECUTE_LINES, KEY_EXECUTE_COMMAND,\
-KEY_CLASSIC_ENTER, KEY_SKIP_WORD_LEFT_1, KEY_SKIP_WORD_RIGHT_1,\
-KEY_SKIP_WORD_LEFT_2, KEY_SKIP_WORD_RIGHT_2, KEY_SKIP_WORD_LEFT_3,\
-KEY_SKIP_WORD_RIGHT_3, KEY_LINE_HOME_1, KEY_LINE_HOME_2, KEY_LINE_END_1,\
-KEY_LINE_END_2, KEY_TO_LINE_OR_HOME, KEY_LINE_ADD_CLIPBOARD,\
-KEY_TO_LINE_OR_END, KEY_NEW_LINE_UP, KEY_NEW_LINE_DOWN, KEY_CLIPBOARD_DELETE,\
-KEY_LINE_TO_CLIPBOARD, KEY_LINE_DELETE, KEY_COMMAND_LAST, KEY_COMMAND_NEXT,\
-KEY_EXIT_IF_LINE_EMPTY, KEY_COMMAND_NEW, KEY_TO_COMMAND_OR_HOME,\
-KEY_TO_COMMAND_DELETE, {0, 0}}
 
 #endif

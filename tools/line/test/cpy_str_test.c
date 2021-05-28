@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 01:34:30 by telron            #+#    #+#             */
-/*   Updated: 2021/01/15 04:57:57 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/26 10:30:11 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	ft_case(size_t size, const char *string)
 	line = ft_line_new(size);
 	ft_line_cpy_str(line, string);
 	len = ft_strlen(string);
-
 	if (!ft_strcmp(line->string, string) &&\
 		(len == line->length) &&\
 		(len < line->allocated))

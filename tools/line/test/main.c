@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:26:32 by telron            #+#    #+#             */
-/*   Updated: 2021/01/28 23:00:13 by telron           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:57:57 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int		main(void)
 	ft_line_cpy_str_test();
 	ft_line_cpy_line_test();
 	ft_line_sub_line_test();
+	ft_line_insert_sub_line_test();
 	return (0);
 }

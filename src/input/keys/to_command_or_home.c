@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_command_or_home.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 15:24:53 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 16:28:16 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:30:32 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		ft_input_keys_to_command_or_home(t_shell *config)
 	view = &config->view;
 	view->command = ft_dlstleft(&view->command->transport)->content;
 	view->index_command = 1;
-	while (view->command->transport.right && view->mode_normal.digit_for_normal > 1)
+	while (view->command->transport.right && \
+										view->mode_normal.digit_for_normal > 1)
 	{
 		view->mode_normal.digit_for_normal--;
 		view->command = view->command->transport.right->content;

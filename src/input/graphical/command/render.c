@@ -6,53 +6,102 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:05:00 by telron            #+#    #+#             */
-/*   Updated: 2021/03/02 10:57:21 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/24 23:01:09 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void\
+static int		\
+	ft_need_set_middle(\
+			t_command *command,\
+			size_t counter,\
+			size_t add_counter,
+			t_line *line)
+{
+	return ((counter <= command->xx_cursor \
+					&& command->xx_cursor < counter + add_counter) || \
+					(line->length < command->xx_cursor));
+}
+
+static size_t	\
+	ft_get_add_counter(\
+			t_shell *config,
+			size_t counter)
+{
+	size_t		add_counter;
+	t_command	*command;
+
+	command = ft_input_command_get(config);
+	add_counter = g_winsize.ws_col;
+	if (!counter)
+		add_counter -= command->len_prefix;
+	return (add_counter);
+}
+
+t_dlist			\
+	*ft_create_and_add_line(\
+				t_shell *config,\
+				size_t counters[3],\
+				t_dlist **result,\
+				t_line *line)
+{
+	t_output_line	*output_line;
+	t_dlist			*new;
+
+	if (!(output_line = ft_input_output_line_new(\
+				line, counters[2], counters[0], counters[0] + counters[1])))
+		ft_exit(config);
+	if(!(new = ft_dlstadd_right_content(result, output_line)))
+		ft_exit(config);
+	return (new);
+}
+
+void			\
+	ft_if_is_cursor_line(\
+				t_shell *config,\
+				t_dlist *dlist,\
+				t_dlist *new,\
+				size_t counters[3])
+{
+	t_command		*command;
+	t_line			*line;
+
+	command = ft_input_command_get(config);
+	line = ((t_cmd_line *)dlist->content)->line;
+	if (&command->cmd_line->transport == dlist)
+	{
+		((t_output_line *)new->content)->is_cursor_line = 1;
+		if (ft_need_set_middle(command, counters[0], counters[1], line))
+			config->view.draw.middle = new;
+	}
+}
+
+void			\
 	ft_input_command_render(\
 			t_shell *config)
 {
 	t_dlist			*dlist;
 	t_dlist			*result;
-	size_t			counter;
-	size_t			add_counter;
-	size_t			index;
-	t_output_line	*output_line;
-	t_line			*line;
+	size_t			counters[3];
 	t_dlist			*new;
-	t_command		*command;
 
 	result = 0;
-	index = 1;
-	command = ft_input_command_get(config);
+	counters[2] = 1;
 	config->view.draw.middle = 0;
-	dlist = ft_dlstleft(&command->cmd_line->transport);
+	dlist = ft_dlstleft(&ft_input_command_get(config)->cmd_line->transport);
 	while (dlist)
 	{
-		counter = 0;
-		line = ((t_cmd_line *)dlist->content)->line;
-		while (counter <= line->length)
+		counters[0] = 0;
+		while (counters[0] <= ((t_cmd_line *)dlist->content)->line->length)
 		{
-			add_counter = g_winsize.ws_col;
-			if (!counter)
-				add_counter -= command->len_prefix;
-			output_line = ft_input_output_line_new(\
-								line, index, counter, counter + add_counter);
-			new = ft_dlstnew(output_line);
-			if (&command->cmd_line->transport == dlist)
-				output_line->is_cursor_line = 1;
-			if (&command->cmd_line->transport == dlist &&\
-				((counter <= command->xx_cursor && command->xx_cursor < counter + add_counter) ||\
-				(line->length < command->xx_cursor)))
-				config->view.draw.middle = new;
-			ft_dlstadd_right(&result, new);
-			counter += add_counter;
+			counters[1] = ft_get_add_counter(config, counters[0]);
+			new = ft_create_and_add_line(config, counters, &result,\
+				((t_cmd_line *)dlist->content)->line);
+			ft_if_is_cursor_line(config, dlist, new, counters);
+			counters[0] += counters[1];
 		}
+		counters[2]++;
 		dlist = dlist->right;
-		index++;
 	}
 }

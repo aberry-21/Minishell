@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 00:23:50 by telron            #+#    #+#             */
-/*   Updated: 2021/03/01 16:01:33 by telron           ###   ########.fr       */
+/*   Updated: 2021/05/27 15:32:51 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct			s_command
 	t_cmd_line			*cmd_line;
 }						t_command;
 
+typedef struct			s_mode_choice
+{
+	char				input_buffer[32];
+	size_t				buffer_length;
+	t_command			choice;
+}						t_mode_choice;
+
 typedef struct			s_mode_normal
 {
 	char				input_buffer[32];
@@ -39,6 +46,15 @@ typedef struct			s_mode_normal
 	size_t				digit_for_normal;
 	t_command			clipboard;
 }						t_mode_normal;
+
+typedef struct			s_mode_note
+{
+	char				input_buffer[32];
+	size_t				buffer_length;
+	size_t				digit_for_normal;
+	t_command			note;
+	t_line				*stop_word;
+}						t_mode_note;
 
 typedef struct			s_output_line
 {
@@ -67,7 +83,10 @@ typedef struct			s_draw
 typedef struct			s_view
 {
 	char				mode;
+	char				canvas;
 	t_mode_normal		mode_normal;
+	t_mode_choice		mode_choice;
+	t_mode_note			mode_note;
 	t_command			*command;
 	t_line				*signature;
 	size_t				count_command;
@@ -85,11 +104,9 @@ typedef struct			s_shell
 }						t_shell;
 
 typedef struct			s_dir
-{	
+{
 	DIR					*dir;
 	struct dirent		*entry;
 }						t_dir;
-
-#include "minishell_parse_structs.h"
 
 #endif

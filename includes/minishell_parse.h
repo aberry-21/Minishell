@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parse.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aberry <aberry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 14:56:11 by telron            #+#    #+#             */
-/*   Updated: 2021/02/19 19:09:20 by telron           ###   ########.fr       */
+/*   Created: 2021/04/24 18:56:28 by aberry            #+#    #+#             */
+/*   Updated: 2021/04/24 18:58:10 by aberry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "minishell_includes.h"
 # include "minishell_parse_structs.h"
 
-// int					ft_parse_run_cmd_line(t_shell *config, t_cmd_line *cmd_line);
-// t_parse_element		*ft_parse_run_command(t_shell *config, t_command *command);
 int					ft_run_cmd_lines(t_shell *config, size_t count_lines,\
 						char from_the_first_line);
 void				ft_run(t_shell *config, t_parse_element *element);
@@ -43,52 +41,67 @@ t_parse_element		*ft_parse_build_group(t_dlist *tokens);
 t_parse_element		*ft_parse_build_sequence(t_shell *config, t_dlist *tokens);
 t_parse_element		*ft_parse_build_pipe(t_shell *config, t_dlist *tokens);
 t_parse_element		*ft_parse_build_command(t_dlist *tokens);
-t_parse_element		*ft_parse_build_redirection(t_shell *config, t_dlist *tokens);
+t_parse_element		*ft_parse_build_redirection(t_shell *config,\
+															t_dlist *tokens);
 
-/*									ELEMENT CLASS								*/
+/*
+** 									ELEMENT CLASS
+*/
 void				ft_parse_element_checker(t_parse_element *element);
 void				ft_parse_element_destructor(t_parse_element *element);
 t_parse_element		*ft_parse_element_create(char *name, void *content);
 void				ft_parse_element_run(t_shell *config, t_stream *stream,
-														t_parse_element *element);
+													t_parse_element *element);
 void				ft_parse_element_to_immutable(t_parse_element *element);
-	
-/*										AND CLASS								*/
+
+/*
+** 										AND CLASS
+*/
 void				ft_parse_and_checker(t_parse_and *and);
 void				ft_parse_and_destructor(t_parse_and *element);
 t_parse_element		*ft_parse_and_create(t_parse_element *element);
 void				ft_parse_and_run(t_shell *config, t_stream *stream,
-															t_parse_and *element);
+														t_parse_and *element);
 
-/*										COMMAND CLASS							*/
+/*
+** 										COMMAND CLASS
+*/
 void				ft_parse_command_checker(t_parse_command *command);
 void				ft_parse_command_destructor(t_parse_command *command);
 t_parse_element		*ft_parse_command_create(t_dlist *dlist_argums);
 void				ft_parse_command_run(t_shell *config, t_stream *stream,
-														t_parse_command *element);
+													t_parse_command *element);
 
-/*										GROUP CLASS								*/
+/*
+** 										GROUP CLASS
+*/
 void				ft_parse_group_checker(t_parse_group *group);
 t_parse_element		*ft_parse_group_create(t_parse_element *element);
 void				ft_parse_group_destructor(t_parse_group *group);
 void				ft_parse_group_run(t_shell *config, t_stream *stream,
-														t_parse_group *element);
+													t_parse_group *element);
 
-/*									MARK ONE CLASS								*/
+/*
+** 									MARK ONE CLASS
+*/
 void				ft_parse_immutable_checker(t_parse_immutable *immutable);
 t_parse_element		*ft_parse_immutable_create(t_line *line);
 void				ft_parse_immutable_destructor(t_parse_immutable *immutable);
 void				ft_parse_immutable_run(t_shell *config, t_stream *stream,
-														t_parse_immutable *element);
+													t_parse_immutable *element);
 
-/*									OR CLASS									*/
+/*
+** 									OR CLASS
+*/
 void				ft_parse_or_checker(t_parse_or *or);
 t_parse_element		*ft_parse_or_create(t_parse_element *element);
 void				ft_parse_or_destructor(t_parse_or *or);
 void				ft_parse_or_run(t_shell *config, t_stream *stream,
-															t_parse_or *element);
+														t_parse_or *element);
 
-/*									PIPE CLASS									*/
+/*
+** 									PIPE CLASS
+*/
 void				ft_parse_pipe_checker(t_parse_pipe *pipe);
 t_parse_element		*ft_parse_pipe_create(t_parse_element *left,
 														t_parse_element *right);
@@ -96,42 +109,52 @@ void				ft_parse_pipe_destructor(t_parse_pipe *pipe);
 void				ft_parse_pipe_run(t_shell *config, t_stream *stream,
 														t_parse_pipe *element);
 
-/*									REDIRECTION CLASS							*/
+/*
+** 									REDIRECTION CLASS
+*/
 void				ft_parse_redirection_checker(t_parse_redirection
-																	*redirection);
+																*redirection);
 t_parse_element		*ft_parse_redirection_create(t_parse_element *element,\
 												t_dlist *name_file, int type);
 void				ft_parse_redirection_destructor(t_parse_redirection
-																	*redirection);
+																*redirection);
 void				ft_parse_redirection_run(t_shell *config, t_stream *stream,
-													t_parse_redirection *element);
+												t_parse_redirection *element);
 
-/*									SEPARATOR CLASS							*/
+/*
+** 									SEPARATOR CLASS
+*/
 void				ft_parse_separator_checker(t_parse_separator *separator);
 t_parse_element		*ft_parse_separator_create(t_line *line);
 void				ft_parse_separator_destructor(t_parse_separator *separator);
 void				ft_parse_separator_run(t_shell *config, t_stream *stream,
 													t_parse_separator *element);
 
-/*									SEQUENCE CLASS								*/
+/*
+** 									SEQUENCE CLASS
+*/
 void				ft_parse_sequence_checker(t_parse_sequence *sequence);
 t_parse_element		*ft_parse_sequence_create(t_dlist *dlist_element);
 void				ft_parse_sequence_destructor(t_parse_sequence *sequence);
 void				ft_parse_sequence_run(t_shell *config, t_stream *stream,
 													t_parse_sequence *element);
 
-/*									STRING CLASS								*/
+/*
+** 									STRING CLASS
+*/
 void				ft_parse_string_checker(t_parse_string *string);
 t_parse_element		*ft_parse_string_create(t_line *line);
 void				ft_parse_string_destructor(t_parse_string *string);
 void				ft_parse_string_run(t_shell *config, t_stream *stream,
-														t_parse_string *element);
+													t_parse_string *element);
 
-/*									VARIABLE CLASS								*/
+/*
+** 									VARIABLE CLASS
+*/
 void				ft_parse_variable_checker(t_parse_variable *variable);
 t_parse_element		*ft_parse_variable_create(t_line *line);
 void				ft_parse_variable_destructor(t_parse_variable *variable);
 void				ft_parse_variable_run(t_shell *config, t_stream *stream,
-														t_parse_variable *element);
+													t_parse_variable *element);
 
 #endif

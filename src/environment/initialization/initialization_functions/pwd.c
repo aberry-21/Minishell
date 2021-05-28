@@ -6,7 +6,7 @@
 /*   By: telron <telron@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 22:07:29 by telron            #+#    #+#             */
-/*   Updated: 2021/03/02 11:12:22 by telron           ###   ########.fr       */
+/*   Updated: 2021/04/24 19:02:21 by telron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void		ft_env_var_init_pwd(t_shell __attribute__((unused)) *config,\
 	var_pwd = ft_env_var_new(environment, "PWD", -1);
 	if (var_pwd)
 	{
-		var_pwd->attributes = (VAR_ATTR_NOUNSET | VAR_ATTR_TO_EXECUTBLE | VAR_ATTR_ISDYNAMIC);
+		var_pwd->attributes = (VAR_ATTR_NOUNSET\
+							| VAR_ATTR_TO_EXECUTBLE\
+							| VAR_ATTR_ISDYNAMIC);
 		var_pwd->ft_dynamic_value = ft_dynamic_value;
 	}
 }
